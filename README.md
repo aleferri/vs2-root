@@ -24,6 +24,10 @@ You can find a technical writeup in [WRITEUP.md](https://github.com/mati7337/fun
 
 These instructions apply to linux, but they also might work on Windows Subsystem for Linux.
 
+Reconstructed binary is a little different than the running binary, run ntfs_edit_offset.py with a 0x20 diff in the two pointers:
+
+python3 ntfs_edit_offset.py usb.img --ntfs-3g ./bin/ntfs-3g --ident 0001002cffffe5600001003c0000000c000000000100017c1f0c1d000000000c0000001400406690000005200000000c0000002400406bb00000050000000000
+
 #### Preparations
 
 Before you begin you have to enable SMBv1 support, because that's the only version supported by funbox 2.0
@@ -90,3 +94,4 @@ If you see a success message you can unplug the usb stick. This will activate th
 ```shell
 telnet 192.168.1.1 631
 ```
+
