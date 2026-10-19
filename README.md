@@ -26,8 +26,6 @@ These instructions apply to linux, but they also might work on Windows Subsystem
 
 Reconstructed binary is a little different than the running binary, run ntfs_edit_offset.py with a 0x20 diff in the two pointers:
 
-python3 ntfs_edit_offset.py usb.img --ntfs-3g ./bin/ntfs-3g --ident 0001002cffffe5600001003c0000000c000000000100017c1f0c1d000000000c0000001400406690000005200000000c0000002400406bb00000050000000000
-
 #### Preparations
 
 Before you begin you have to enable SMBv1 support, because that's the only version supported by funbox 2.0
@@ -88,6 +86,9 @@ python3 ntfs_edit_offset.py usb.img --ntfs-3g ./bin/ntfs-3g --ident HEX_STRING
 ```
 
 This will set the correct offset in the ntfs-3g image. Now write the edited image to the usb stick and plug it again into the modem. Running it again should finish successfully. If you still get an error try unplugging and plugging back in the usb stick, as sometimes it can result in different heap addresses. If that still doesn't work, try creating the image again.
+
+Note: you may not find the same exact data in the binary, as the binary was reconstructed and is not byte perfect, but if a similar (95%) structure exists
+and you may correct the passed hex string to match what is in the binary at that location.
 
 If you see a success message you can unplug the usb stick. This will activate the exploit stored in memory which will kill the cupsd process and run telnetd on it's port (other ports are blocked by the firewall). You can then connect to it
 
