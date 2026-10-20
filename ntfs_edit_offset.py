@@ -5,6 +5,7 @@ text_just = 38
 indent = 0
 mft_size = 1024
 TARGET_FILE_POS = 0x9000
+DEFAULT_OFFSET = 0xa18
 
 def label(text, value, quote=False):
     if quote:
@@ -123,7 +124,7 @@ def main():
 
         print()
     else:
-        data_meta.offset = 0
+        data_meta.offset = DEFAULT_OFFSET
 
     label("New data size", hex(data_meta.size))
     label("New data offset", hex(data_meta.offset))
