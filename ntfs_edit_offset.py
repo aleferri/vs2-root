@@ -5,7 +5,7 @@ text_just = 38
 indent = 0
 mft_size = 1024
 TARGET_FILE_POS = 0x9000
-DEFAULT_OFFSET = 0xa18
+DEFAULT_OFFSET = 0x9f8
 
 def label(text, value, quote=False):
     if quote:
